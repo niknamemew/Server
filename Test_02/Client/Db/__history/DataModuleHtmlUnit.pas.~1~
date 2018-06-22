@@ -1,0 +1,371 @@
+unit DataModuleHtmlUnit;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DBXDb2, Data.DB, Data.SqlExpr,
+  Data.FMTBcd;
+
+type
+
+  TRecordClienti = record
+    CODCLIEN: String;
+    RAGFATTU: String;
+    INDFATTU: String;
+    CAPFATTU: String;
+    CITFATTU: String;
+    PAESFATT: String;
+  end;
+
+  TRecordFornitori = record
+    CODFORNI: String;
+    RAGFORNI: String;
+    INDFORNI: String;
+    CAPFORNI: String;
+    CITFORNI: String;
+    CODPAESE: String;
+  end;
+
+  TDataModuleHtml = class(TDataModule)
+    ConnDavanzam: TSQLConnection;
+    DSTemp: TDataSource;
+    Qtemp: TSQLQuery;
+  private
+    { Private declarations }
+    FClientiDettaglioPag: string;
+    FFornitoDettaglioPAg: string;
+    function LeggiListaClientiDaDb:string;
+    function LeggiListaFornitoriDaDb:string;
+    function CreaPaginaDettaglioClienti:string;
+    function CreaPaginaDettaglioFornitori:string;
+    procedure OutputPaginaDettaglioCliente(const c: TRecordClienti);
+    procedure OutputPaginaDettaglioFornitori(const c: TRecordFornitori);
+  public
+    { Public declarations }
+    function GetTitle:string;
+    function GetHtmlBody:string;
+  end;
+
+//qui asterisco la variabile dell'oggetto e la istanzio di mia volonta' nel
+//TWebModuleMain.PageProducer1HTMLTag in modo da liberare la risorsa correttamente
+
+//var
+//  DataModuleHtml: TDataModuleHtml;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+{ TDataModuleHtml }
+
+function TDataModuleHtml.GetTitle: string;
+begin
+  result:='JQuery Mobile Test';
+end;
+
+function TDataModuleHtml.GetHtmlBody: string;
+begin
+          //Prima Pagina
+  result:= '<div data-role="page" id="principale" data-theme="a">'  //Per pagine multiple devo indicare un id
+          +'<div data-role="header">'
+          +'<h1>DITTA PINCO PALLINO</h1>'
+          +'</div><!-- /header -->'
+          +'<div data-role="content">'
+          +'<p>ANAGRAFICA</p>'
+          +'<ul data-role="listview" data-inset="true" data-theme="c" >'
+          +'<li><a href="#fornitori">Fornitori</a></li>'
+          +'<li><a href="#clienti">Clienti</a></li>'
+          +'</ul>'
+          +'</div><!-- /content -->'
+          +'<div data-role="footer">'
+          +'<h4></h4>'
+          +'</div><!-- /footer -->'
+          +'</div><!-- /page -->'
+          //Seconda Pagina Fornitori
+          +'<div data-role="page" id="fornitori" data-theme="a">'  //Seconda pagina
+          +'<div data-role="header">'
+          +'<h1>FORNITORI</h1>'
+          +'</div><!-- /header -->'
+          +'<div data-role="content">'
+          //link normale '<p><a href="#principale">Pagina Principale</a></p>'
+          +'<p><a href="#principale" data-rel="back" data-role="button" data-inline="true" data-icon="back">MENU'' PRINCIPALE</a></p>'
+          +'<p>Filtra Fornitori</p>'
+          //lista dinamica sulla pagina clienti con dati da db
+          + LeggiListaFornitoriDaDb
+          +'</div><!-- /content -->'
+          +'<div data-role="footer">'
+          +'<h4></h4>'
+          +'</div><!-- /footer -->'
+          +'</div><!-- /page -->'
+          //Pagina Dettaglio Clienti
+          +CreaPaginaDettaglioFornitori
+          //Terza Pagina Clienti
+          +'<div data-role="page" id="clienti" data-theme="a">'  //Terza pagina
+          +'<div data-role="header">'
+          +'<h1>CLIENTI</h1>'
+          +'</div><!-- /header -->'
+          +'<div data-role="content">'
+          //link normale '<p><a href="#principale">Pagina Principale</a></p>'
+          +'<p><a href="#principale" data-rel="back" data-role="button" data-inline="true" data-icon="back">MENU'' PRINCIPALE</a></p>'
+          +'<p>Filtra Clienti</p>'
+          //lista dinamica sulla pagina clienti con dati da db
+          + LeggiListaClientiDaDb
+          +'</div><!-- /content -->'
+          +'<div data-role="footer">'
+          +'<h4></h4>'
+          +'</div><!-- /footer -->'
+          +'</div><!-- /page -->'
+          //Pagina Dettaglio Clienti
+          +CreaPaginaDettaglioClienti
+end;
+
+function TDataModuleHtml.LeggiListaClientiDaDb: string;
+var ch:char; s:string; c: TRecordClienti;
+begin
+  s := '<ul data-role="listview" data-inset="true" data-theme="c" data-filter="true">';
+  ch:=' ';
+  result:='';
+
+  try
+    ConnDavanzam.Connected:=false;
+    ConnDavanzam.Connected:=true;
+  except
+    on e:eDataBaseError do
+    begin
+       QTemp.SQL.Clear;
+       exit;
+    end;
+  end;
+
+  QTemp.SQL.Clear;
+  QTemp.SQL.Add('select CODCLIEN,RAGFATTU,ESRAGFAT,INDFATTU,ESINDFAT,CAPFATTU,CITFATTU,ESCITFAT,PAESFATT ');
+  QTemp.SQL.Add('from MIRO.TCLIENTI ');
+  QTemp.SQL.Add('order by RAGFATTU ');
+
+  try
+    QTemp.Open;
+  except
+    on e:eDataBaseError do
+    begin
+        Qtemp.Close;
+      exit;
+    end;
+  end;
+
+  while not QTemp.Eof do
+  begin
+    c.CODCLIEN:=trim(Qtemp.FieldBYNAME('CODCLIEN').Asstring);
+    c.RAGFATTU:=trim(Qtemp.FieldBYNAME('RAGFATTU').Asstring);
+    if trim(Qtemp.FieldBYNAME('ESRAGFAT').Asstring) > '' then
+      c.RAGFATTU:=c.RAGFATTU +  ' ' + trim(Qtemp.FieldBYNAME('ESRAGFAT').Asstring);
+
+    c.INDFATTU:=trim(Qtemp.FieldBYNAME('INDFATTU').Asstring);
+    if trim(Qtemp.FieldBYNAME('ESINDFAT').Asstring) > '' then
+      c.INDFATTU:=c.INDFATTU + ' ' + trim(Qtemp.FieldBYNAME('ESINDFAT').Asstring);
+
+    c.CAPFATTU:=trim(Qtemp.FieldBYNAME('CAPFATTU').Asstring);
+    c.CITFATTU:=trim(Qtemp.FieldBYNAME('CITFATTU').Asstring);
+    if trim(Qtemp.FieldBYNAME('ESCITFAT').Asstring) > '' then
+      c.CITFATTU:=c.CITFATTU + ' ' + trim(Qtemp.FieldBYNAME('ESCITFAT').Asstring);
+
+    c.PAESFATT:=trim(Qtemp.FieldBYNAME('PAESFATT').Asstring);
+
+    if ch <> c.RAGFATTU[1] then
+    begin
+      ch :=  c.RAGFATTU[1];
+      s:=s + '<li data-role="list-divider" data-theme="b">' + ch + '</li>';
+    end;
+
+    s:=s + '<li><a href="#cliente' + c.CODCLIEN + '">' + c.RAGFATTU + '</a></li>';
+
+    OutputPaginaDettaglioCliente(c);
+
+    Qtemp.Next;
+  end;
+
+  Qtemp.Close;
+
+  try
+    ConnDavanzam.Connected:=false;
+  except
+    on e:eDataBaseError do
+    begin
+       QTemp.SQL.Clear;
+       exit;
+    end;
+  end;
+
+
+  s:=s + '</ul>';
+  Result:=s;
+
+  //result:= '<li><a href="#">cliente 1</a></li>'
+  //         +'<li><a href="#">cliente 2</a></li>'
+  //         +'<li><a href="#">cliente 3</a></li>'
+end;
+
+procedure TDataModuleHtml.OutputPaginaDettaglioCliente(const c: TRecordClienti);
+var s: string;
+begin
+
+  s := '<!-- Pagina Dettaglio Cliente -->' //Commento
+      +'<div data-role="page" id="cliente' + c.CODCLIEN + '">'
+      +'<div data-role="header">'
+      +'<h1>Dettaglio Cliente</h1>'
+      +'</div><!-- /header -->'
+      +'<div data-role="content">'
+      +'<p><a href="#clienti" data-rel="back" data-role="button" data-inline="true" data-icon="back">BACK</a></p>'
+      +'<div data-role="collapsible" data-collapsed="false" data-theme="b">'
+      +'<h3>Nome</h3>'
+      +'<p><h3>' + c.CODCLIEN + ' ' + c.RAGFATTU + '</h3></p>'
+       +'</div>'
+      +'<div data-role="collapsible" data-collapsed="false" data-theme="b">'
+      +'<h3>Indirizzo</h3>'
+      +'<p><h3>' + c.INDFATTU + '</h3></p>'
+      +'<p><h3>' + 'Cap:' + c.CAPFATTU + '</h3></p>'
+      +'<p><h3>' + 'Citta'':' + c.CITFATTU + '</h3></p>'
+      +'<p><h3>' + 'Paese:' + c.PAESFATT + '</h3></p>'
+      +'</div>'
+      +'</div><!-- /content -->'
+      +'<div data-role="footer">'
+      +'</div><!-- /footer -->'
+      +'</div><!-- /page -->';
+
+  FClientiDettaglioPag := FClientiDettaglioPag + s;
+
+end;
+
+function TDataModuleHtml.CreaPaginaDettaglioClienti: string;
+begin
+  Result := FClientiDettaglioPag;
+end;
+
+
+function TDataModuleHtml.LeggiListaFornitoriDaDb: string;
+var ch:char; s:string; c: TRecordFornitori;
+begin
+  s := '<ul data-role="listview" data-inset="true" data-theme="c" data-filter="true">';
+  ch:=' ';
+  result:='';
+
+  try
+    ConnDavanzam.Connected:=false;
+    ConnDavanzam.Connected:=true;
+  except
+    on e:eDataBaseError do
+    begin
+       QTemp.SQL.Clear;
+       exit;
+    end;
+  end;
+
+  QTemp.SQL.Clear;
+  QTemp.SQL.Add('select CODFORNI,RAGFORNI,ESRAGFOR,INDFORNI,ESINDFOR,CAPFORNI,CITFORNI,ESCITFOR,CODPAESE ');
+  QTemp.SQL.Add('from MIRO.TFORNITORI ');
+  QTemp.SQL.Add('order by RAGFORNI ');
+
+  try
+    QTemp.Open;
+  except
+    on e:eDataBaseError do
+    begin
+        Qtemp.Close;
+      exit;
+    end;
+  end;
+
+  while not QTemp.Eof do
+  begin
+    c.CODFORNI:=trim(Qtemp.FieldBYNAME('CODFORNI').Asstring);
+    c.RAGFORNI:=trim(Qtemp.FieldBYNAME('RAGFORNI').Asstring);
+    if trim(Qtemp.FieldBYNAME('ESRAGFOR').Asstring) > '' then
+      c.RAGFORNI:=c.RAGFORNI + ' ' + trim(Qtemp.FieldBYNAME('ESRAGFOR').Asstring);
+
+    c.INDFORNI:=trim(Qtemp.FieldBYNAME('INDFORNI').Asstring);
+    if trim(Qtemp.FieldBYNAME('ESINDFOR').Asstring) > '' then
+      c.INDFORNI:=c.INDFORNI + ' ' + trim(Qtemp.FieldBYNAME('ESINDFOR').Asstring);
+
+    c.CAPFORNI:=trim(Qtemp.FieldBYNAME('CAPFORNI').Asstring);
+    c.CITFORNI:=trim(Qtemp.FieldBYNAME('CITFORNI').Asstring);
+    if trim(Qtemp.FieldBYNAME('ESCITFOR').Asstring) > '' then
+      c.CITFORNI:=c.CITFORNI + ' ' + trim(Qtemp.FieldBYNAME('ESCITFOR').Asstring);
+
+    c.CODPAESE:=trim(Qtemp.FieldBYNAME('CODPAESE').Asstring);
+
+    if ch <> c.RAGFORNI[1] then
+    begin
+      ch :=  c.RAGFORNI[1];
+      s:=s + '<li data-role="list-divider" data-theme="b">' + ch + '</li>';
+    end;
+
+    s:=s + '<li><a href="#fornitore' + c.CODFORNI + '">' + c.RAGFORNI + '</a></li>';
+
+    OutputPaginaDettaglioFornitori(c);
+
+    Qtemp.Next;
+  end;
+
+  Qtemp.Close;
+
+  try
+    ConnDavanzam.Connected:=false;
+  except
+    on e:eDataBaseError do
+    begin
+       QTemp.SQL.Clear;
+       exit;
+    end;
+  end;
+
+
+  s:=s + '</ul>';
+  Result:=s;
+
+  //result:= '<li><a href="#">cliente 1</a></li>'
+  //         +'<li><a href="#">cliente 2</a></li>'
+  //         +'<li><a href="#">cliente 3</a></li>'
+end;
+
+procedure TDataModuleHtml.OutputPaginaDettaglioFornitori(const c: TRecordFornitori);
+var s: string;
+begin
+
+  s := '<!-- Pagina Dettaglio Fornitori -->'
+      +'<div data-role="page" id="fornitore' + c.CODFORNI + '">'
+      +'<div data-role="header">'
+      +'<h1>Dettaglio Fornitore</h1>'
+      +'</div><!-- /header -->'
+      +'<div data-role="content">'
+      +'<p><a href="#fornitori" data-rel="back" data-role="button" data-inline="true" data-icon="back">BACK</a></p>'
+
+      +'<div data-role="collapsible" data-collapsed="false" data-theme="b">'
+      +'<h3>Nome</h3>'
+      +'<p><h3>' + c.CODFORNI + ' ' + c.RAGFORNI + '</h3></p>'
+       +'</div>'
+
+      +'<div data-role="collapsible" data-collapsed="false" data-theme="b">'
+      +'<h3>Indirizzo</h3>'
+      +'<p><h3>' + c.INDFORNI + '</h3></p>'
+      +'<p><h3>' + 'Cap:' + c.CAPFORNI + '</h3></p>'
+      +'<p><h3>' + 'Citta'':' + c.CITFORNI + '</h3></p>'
+      +'<p><h3>' + 'Paese:' + c.CODPAESE + '</h3></p>'
+      +'</div>'
+      +'</div><!-- /content -->'
+      +'<div data-role="footer">'
+      +'</div><!-- /footer -->'
+      +'</div><!-- /page -->';
+
+  FFornitoDettaglioPAg := FFornitoDettaglioPAg + s;
+
+end;
+
+function TDataModuleHtml.CreaPaginaDettaglioFornitori: string;
+begin
+  Result := FFornitoDettaglioPAg;
+end;
+
+
+
+end.

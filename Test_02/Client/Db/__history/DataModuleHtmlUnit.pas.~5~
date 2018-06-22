@@ -1,0 +1,56 @@
+unit DataModuleHtmlUnit;
+
+interface
+
+uses System.Classes, Data.DBXDb2, Data.FMTBcd, Data.DB, Data.SqlExpr, System.SysUtils;
+
+type
+  TRecordClienti = record
+    CODCLIEN: String;
+    RAGFATTU: String;
+    INDFATTU: String;
+    CAPFATTU: String;
+    CITFATTU: String;
+    PAESFATT: String;
+  end;
+
+  TRecordFornitori = record
+    CODFORNI: String;
+    RAGFORNI: String;
+    INDFORNI: String;
+    CAPFORNI: String;
+    CITFORNI: String;
+    CODPAESE: String;
+  end;
+
+  TDataModule1 = class(TDataModule)
+    ConnDavanzam: TSQLConnection;
+    DSTemp: TDataSource;
+    Qtemp: TSQLQuery;
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    function leggilistaClienti :string;
+    function leggilistaFornitori (name: string) :string;
+  end;
+
+var
+  DataModule: TDataModule1;
+
+implementation
+
+{$R *.dfm}
+
+function TDataModule1.leggilistaClienti :string;
+begin
+   result := 'breakpoint';
+end;
+
+function TDataModule1.leggilistaFornitori(name: string): string;
+begin
+
+end;
+
+end.

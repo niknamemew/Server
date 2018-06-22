@@ -1,0 +1,80 @@
+unit ServerMethodsUnit1;
+
+interface
+
+uses System.SysUtils, System.Classes, Datasnap.DSServer, Datasnap.DSAuth, Generics.Collections, json;
+
+type
+{$METHODINFO ON}
+  TServerMethods1 = class(TComponent)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    function Clienti(name: string): string;
+    function InserisciCliente(cod:string; ragf:string; esragf:string; indif:string; esindif:string; capf:string; citf:string; escitf:string; paesf:string; paesm:string; codiling:string; ragm:string; esragm:string; indim:string; esindim:string; citm:string; escitm:string; capm:string; tipocons:String; prof:string; prom:string) :string;
+    function InserisciFornitore(cod:string; ragf:string; esragf:string; indif:string; esindif:string; capf:string; citf:string; escitf:string; paesf:string) :string;
+    function EchoString(Value: string): string;
+    function ReverseString(Value: string): string;
+    function Test(cod:string; ragf:string; esragf:string; indif:string; esindif:string; capf:string; citf:string; escitf:string; paesf:string; paesm:string; codiling:string; ragm:string; esragm:string; indim:string; esindim:string; citm:string; escitm:string; capm:string; tipocons:String; prof:string; prom:string) :string;
+function Fornitori(name :string): string;
+  end;
+{$METHODINFO OFF}
+
+implementation
+
+uses System.StrUtils, datamodulehtmlunit, dialogs;
+
+function TServerMethods1.EchoString(Value: string): string;
+begin
+  Result := Value;
+end;
+
+function TServerMethods1.Test(cod:string; ragf:string; esragf:string; indif:string; esindif:string; capf:string; citf:string; escitf:string; paesf:string; paesm:string; codiling:string; ragm:string; esragm:string; indim:string; esindim:string; citm:string; escitm:string; capm:string; tipocons:String; prof:string; prom:string) :string;
+begin
+  result := 'insert into tclienti (CODCLIEN,RAGFATTU,ESRAGFAT,INDFATTU,ESINDFAT,CAPFATTU,CITFATTU,ESCITFAT,PAESFATT,PAESMERC,CODILING,RAGMERCE,ESRAGMER,INDMERCE,ESINDMER,CITMERCE,ESCITMER,CAPMERCE,TIPOCONS,PROFATTU,PROMERCE) values (' + #39 + cod + #39 + ',' + #39 + ragf + #39 + ',' + #39 + esragf + #39 + ',' + #39 + indif + #39 + ',' + #39 + esindif + #39 + ',' + #39 + capf + #39 + ',' + #39 + citf + #39 + ',' + #39 + escitf + #39 + ',' + #39 + paesf + #39 + ',' + #39 + paesm + #39 + ',' + #39 + codiling + #39 + ',' + #39 + ragm + #39 + ',' + #39 + esragm + #39 + ',' + #39 + indim + #39 + ',' + #39 + esindim + #39 + ',' + #39 + citm + #39 + ',' + #39 + escitm + #39 + ',' + #39 + capm + #39 + ',' + #39 + tipocons + #39 + ',' + #39 + prof + #39 + ',' + #39 + prom + #39 + ')';
+end;
+
+function TServerMethods1.ReverseString(Value: string): string;
+begin
+  Result := System.StrUtils.ReverseString(Value);
+end;
+
+function TServerMethods1.Clienti(name: string): string;
+var
+md:TDataModule1;
+begin
+ md := TDataModule1.create(nil);
+ result := md.leggilistaclienti (name);
+ md.Free;
+ end;
+
+function TServerMethods1.Fornitori(name: string): string;
+var
+md:TDataModule1;
+begin
+ md := TDataModule1.create(nil);
+ result := md.leggilistafornitori (name);
+ md.Free;
+ end;
+
+function TServerMethods1.InserisciCliente(cod:string; ragf:string; esragf:string; indif:string; esindif:string; capf:string; citf:string; escitf:string; paesf:string; paesm:string; codiling:string; ragm:string; esragm:string; indim:string; esindim:string; citm:string; escitm:string; capm:string; tipocons:String; prof:string; prom:string): string;
+var
+md:TdataModule1;
+begin
+md := TDataModule1.create(nil);
+result := md.inserisciinlistaClienti(cod, ragf, esragf, indif, esindif, capf, citf, escitf, paesf, paesm, codiling, ragm, esragm, indim, esindim, citm, escitm, capm, tipocons, prof, prom);
+md.Free;
+end;
+
+function TServerMethods1.InserisciFornitore(cod:string; ragf:string; esragf:string; indif:string; esindif:string; capf:string; citf:string; escitf:string; paesf:string): string;
+var
+md:TdataModule1;
+begin
+md := TDataModule1.create(nil);
+result := md.inserisciinlistaFornitori(cod, ragf, esragf, indif, esindif, capf, citf, escitf, paesf);
+md.Free;
+end;
+
+end.
+

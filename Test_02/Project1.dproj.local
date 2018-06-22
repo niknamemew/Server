@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2018/06/14 14:42:29.000.256,=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\FormUnit1.pas</Transaction>
+    <Transaction>2018/06/14 14:42:32.000.631,=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\ServerMethodsUnit1.pas</Transaction>
+    <Transaction>2018/06/14 14:42:35.000.726,=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\WebModuleUnit1.pas</Transaction>
+    <Transaction>2018/06/19 11:39:30.000.154,=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\FormUnit1.pas</Transaction>
+    <Transaction>2018/06/19 11:39:30.000.753,=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\WebModuleUnit1.pas</Transaction>
+    <Transaction>2018/06/19 11:39:30.000.552,=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\ServerMethodsUnit1.pas</Transaction>
+    <Transaction>2018/06/19 12:12:36.000.854,=C:\Users\ngatti\Desktop\Delphi\Test_01\Client\Db\DataModuleHtmlUnit.pas</Transaction>
+    <Transaction>2018/06/19 12:12:58.000.103,C:\Users\ngatti\Desktop\Delphi\Test_01\Client\Db\DataModuleHtmlUnit.pas=</Transaction>
+    <Transaction>2018/06/19 12:13:43.000.099,=C:\Users\ngatti\Desktop\Delphi\Test_02\Client\Db\DataModuleHtmlUnit.pas</Transaction>
+    <Transaction>2018/06/19 12:14:05.000.215,C:\Users\ngatti\Desktop\Delphi\Test_02\Client\Db\DataModuleHtmlUnit.pas=</Transaction>
+    <Transaction>2018/06/19 12:14:14.000.611,=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2018/06/20 08:33:31.000.199,C:\Users\ngatti\Desktop\Delphi\Test_02\Client\Db\DataModuleHtmlUnit.pas=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2018/06/20 08:33:31.000.199,C:\Users\ngatti\Desktop\Delphi\Test_02\Client\Db\DataModuleHtmlUnit.dfm=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2018/06/20 08:33:50.000.627,C:\Users\ngatti\Desktop\Delphi\Test_02\ServerMethodsUnit1.pas=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\ServerMethodsUnit1.pas</Transaction>
+    <Transaction>2018/06/20 08:34:04.000.580,C:\Users\ngatti\Desktop\Delphi\Test_02\conn\FormUnit1.pas=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\FormUnit1.pas</Transaction>
+    <Transaction>2018/06/20 08:34:04.000.580,C:\Users\ngatti\Desktop\Delphi\Test_02\conn\FormUnit1.dfm=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\FormUnit1.dfm</Transaction>
+    <Transaction>2018/06/20 08:34:13.000.400,C:\Users\ngatti\Desktop\Delphi\Test_02\conn\WMU\WebModuleUnit1.pas=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\WebModuleUnit1.pas</Transaction>
+    <Transaction>2018/06/20 08:34:13.000.400,C:\Users\ngatti\Desktop\Delphi\Test_02\conn\WMU\WebModuleUnit1.dfm=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\WebModuleUnit1.dfm</Transaction>
+    <Transaction>2018/06/20 08:34:23.000.299,C:\Users\ngatti\Desktop\Delphi\Test_02\Project1.dproj=C:\Users\ngatti\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

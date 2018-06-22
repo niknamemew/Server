@@ -1,0 +1,218 @@
+unit DataModuleHtmlUnit;
+
+interface
+
+uses System.Classes, Data.DBXDb2, Data.FMTBcd, Data.DB, Data.SqlExpr, System.SysUtils, json;
+
+type
+  TRecordClienti = record
+    CODCLIEN: String;
+    RAGFATTU: String;
+    INDFATTU: String;
+    CAPFATTU: String;
+    CITFATTU: String;
+    PAESFATT: String;
+  end;
+
+  TRecordFornitori = record
+    CODFORNI: String;
+    RAGFORNI: String;
+    INDFORNI: String;
+    CAPFORNI: String;
+    CITFORNI: String;
+    CODPAESE: String;
+  end;
+
+  TDataModule1 = class(TDataModule)
+    ConnDavanzam: TSQLConnection;
+    DSTemp: TDataSource;
+    Qtemp: TSQLQuery;
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    function leggilistaClienti (name : string) :string;
+    function leggilistaFornitori (name: string) :string;
+  end;
+  var
+   datamodule1 : tdatamodule1;
+
+  implementation
+
+{$R *.dfm}
+
+function TDataModule1.leggilistaClienti (name :string) :string;
+var c: TRecordClienti; s:String; i :integer;
+begin
+
+  i:=0;
+  s:='';
+
+  try
+    ConnDavanzam.Connected:=false;
+    ConnDavanzam.Connected:=true;
+  except
+    on e:eDataBaseError do
+    begin
+       QTemp.SQL.Clear;
+       exit;
+    end;
+  end;
+
+  QTemp.SQL.Clear;
+  QTemp.SQL.Add('select CODCLIEN,RAGFATTU,ESRAGFAT,INDFATTU,ESINDFAT,CAPFATTU,CITFATTU,ESCITFAT,PAESFATT ');
+  QTemp.SQL.Add('from TCLIENTI ');
+
+  if name <> '' then
+  begin
+    QTemp.SQL.Add('where codclien = ' + #39 + name + #39);
+  end;
+
+
+  try
+    QTemp.Open;
+  except
+    on e:eDataBaseError do
+    begin
+        Qtemp.Close;
+      exit;
+    end;
+  end;
+
+  while not QTemp.Eof do
+  begin
+    c.CODCLIEN:=trim(Qtemp.FieldBYNAME('CODCLIEN').Asstring);
+    s := s + ' Cliente ' + c.codclien + ':';
+    c.RAGFATTU:=trim(Qtemp.FieldBYNAME('RAGFATTU').Asstring);
+    if trim(Qtemp.FieldBYNAME('ESRAGFAT').Asstring) > '' then
+      c.RAGFATTU:=c.RAGFATTU +  ' ' + trim(Qtemp.FieldBYNAME('ESRAGFAT').Asstring);
+    s := s + ' ' + c.ragfattu + ',';
+
+    c.INDFATTU:=trim(Qtemp.FieldBYNAME('INDFATTU').Asstring);
+    if trim(Qtemp.FieldBYNAME('ESINDFAT').Asstring) > '' then
+      c.INDFATTU:=c.INDFATTU + ' ' + trim(Qtemp.FieldBYNAME('ESINDFAT').Asstring);
+    s := s + ' ' + c.indfattu + ',';
+
+    c.CAPFATTU:=trim(Qtemp.FieldBYNAME('CAPFATTU').Asstring);
+    s := s + ' ' + c.capfattu;
+    c.CITFATTU:=trim(Qtemp.FieldBYNAME('CITFATTU').Asstring);
+    if trim(Qtemp.FieldBYNAME('ESCITFAT').Asstring) > '' then
+      c.CITFATTU:=c.CITFATTU + ' ' + trim(Qtemp.FieldBYNAME('ESCITFAT').Asstring);
+    s := s + ' ' + c.citfattu + ',';
+
+    c.PAESFATT:=trim(Qtemp.FieldBYNAME('PAESFATT').Asstring);
+    s := s + ' ' + c.paesfatt + ';';
+
+    i:=i+1;
+    Qtemp.Next;
+  end;
+
+  Qtemp.Close;
+
+  try
+    ConnDavanzam.Connected:=false;
+  except
+    on e:eDataBaseError do
+    begin
+       QTemp.SQL.Clear;
+       exit;
+    end;
+  end;
+
+  if s > '' then
+    Result := s
+  else
+    Result := 'Cliente inesistente';
+
+end;
+
+function TDataModule1.leggilistaFornitori(name: string): string;
+var c: TRecordFornitori; s:String; i :integer;
+begin
+
+  i:=0;
+  s:='';
+
+  try
+    ConnDavanzam.Connected:=false;
+    ConnDavanzam.Connected:=true;
+  except
+    on e:eDataBaseError do
+    begin
+       QTemp.SQL.Clear;
+       exit;
+    end;
+  end;
+
+  QTemp.SQL.Clear;
+  QTemp.SQL.Add('select CODforni,RAGForni,ESRAGFor,INDForni,ESINDFor,CAPForni,CITForni,ESCITFor,codpaese ');
+  QTemp.SQL.Add('from Tfornitori ');
+
+  if name <> '' then
+  begin
+    QTemp.SQL.Add('where codforni = ' + #39 + name + #39);
+  end;
+
+
+  try
+    QTemp.Open;
+  except
+    on e:eDataBaseError do
+    begin
+        Qtemp.Close;
+      exit;
+    end;
+  end;
+
+  while not QTemp.Eof do
+  begin
+    c.CODforni:=trim(Qtemp.FieldBYNAME('CODforni').Asstring);
+    s := s + ' Fornitore ' + c.codforni + ':';
+    c.RAGForni:=trim(Qtemp.FieldBYNAME('RAGForni').Asstring);
+    if trim(Qtemp.FieldBYNAME('ESRAGFor').Asstring) > '' then
+      c.RAGForni:=c.RAGForni +  ' ' + trim(Qtemp.FieldBYNAME('ESRAGFor').Asstring);
+    s := s + ' ' + c.ragforni + ',';
+
+    c.INDForni:=trim(Qtemp.FieldBYNAME('INDForni').Asstring);
+    if trim(Qtemp.FieldBYNAME('ESINDFor').Asstring) > '' then
+      c.INDForni:=c.INDForni + ' ' + trim(Qtemp.FieldBYNAME('ESINDFor').Asstring);
+    s := s + ' ' + c.indforni + ',';
+
+    c.CAPForni:=trim(Qtemp.FieldBYNAME('CAPForni').Asstring);
+    s := s + ' ' + c.capforni;
+    c.CITForni:=trim(Qtemp.FieldBYNAME('CITForni').Asstring);
+    if trim(Qtemp.FieldBYNAME('ESCITFor').Asstring) > '' then
+      c.CITForni:=c.CITForni + ' ' + trim(Qtemp.FieldBYNAME('ESCITFor').Asstring);
+    s := s + ' ' + c.citforni + ',';
+
+    c.codpaese:=trim(Qtemp.FieldBYNAME('codpaese').Asstring);
+    s := s + ' ' + c.codpaese + ';';
+
+    i:=i+1;
+    Qtemp.Next;
+  end;
+
+  Qtemp.Close;
+
+  try
+    ConnDavanzam.Connected:=false;
+  except
+    on e:eDataBaseError do
+    begin
+       QTemp.SQL.Clear;
+       exit;
+    end;
+  end;
+
+  if s > '' then
+    Result := s
+  else
+    Result := 'Fornitore inesistente';
+
+end;
+
+end.
+
+
+

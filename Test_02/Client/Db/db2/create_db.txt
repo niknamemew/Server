@@ -1,0 +1,1 @@
+db2 create database DAVANZAM on C using codeset 1252 territory it

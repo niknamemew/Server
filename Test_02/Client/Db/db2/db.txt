@@ -1,0 +1,21 @@
+connect to sample user db2admin;
+
+CREATE TABLE TFORNITORI
+       (CODFORNI             char(5)
+ NOT NULL primary key
+       ,RAGFORNI             char(24)
+ NOT NULL DEFAULT
+       ,ESRAGFOR             char(11)        NOT NULL DEFAULT
+       ,INDFORNI             char(24)
+ NOT NULL DEFAULT
+       ,ESINDFOR             char(11)        NOT NULL DEFAULT
+       ,CAPFORNI             char(5)
+ NOT NULL DEFAULT
+       ,CITFORNI             char(18)
+ NOT NULL DEFAULT
+       ,ESCITFOR             char(17)
+ NOT NULL DEFAULT
+       ,CODPAESE             char(3)
+ NOT NULL DEFAULT
+
+       );

@@ -1,0 +1,3 @@
+connect to sample user db2admin;
+
+insert into tfornitori (codforni, ragforni, esragfor, indforni, esindfor, capforni, citforni, escitfor, codepaese) values (0101, 'assoluto', 'certo', 'via tutti', 'si', '12051', 'alba', 'si', 'lb') 

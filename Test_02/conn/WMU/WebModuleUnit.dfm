@@ -1,0 +1,59 @@
+object WebModuleMain: TWebModuleMain
+  OldCreateOrder = False
+  Actions = <
+    item
+      Default = True
+      Name = 'DefaultHandler'
+      PathInfo = '/'
+      Producer = PageProducer1
+      OnAction = WebModule1DefaultHandlerAction
+    end>
+  Height = 230
+  Width = 415
+  object DSServer1: TDSServer
+    Left = 96
+    Top = 11
+  end
+  object DSHTTPWebDispatcher1: TDSHTTPWebDispatcher
+    Server = DSServer1
+    Filters = <>
+    WebDispatch.PathInfo = 'datasnap*'
+    Left = 96
+    Top = 75
+  end
+  object DSServerClass1: TDSServerClass
+    OnGetClass = DSServerClass1GetClass
+    Server = DSServer1
+    Left = 200
+    Top = 11
+  end
+  object PageProducer1: TPageProducer
+    HTMLDoc.Strings = (
+      '<!DOCTYPE html>'
+      '<html>'
+      #9'<head>'
+      #9'<title><#doctitolo></title>'
+      ''
+      
+        #9'<meta name="viewport" content="width=device-width, initial-scal' +
+        'e=1">'
+      ''
+      
+        #9'<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.' +
+        '1/jquery.mobile-1.0.1.min.css" />'
+      
+        #9'<script src="http://code.jquery.com/jquery-1.6.4.min.js"></scri' +
+        'pt>'
+      
+        #9'<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-' +
+        '1.0.1.min.js"></script>'
+      '</head>'
+      '<body>'
+      '        <#docbody>'
+      '</body>'
+      '</html>'
+      '')
+    Left = 208
+    Top = 168
+  end
+end

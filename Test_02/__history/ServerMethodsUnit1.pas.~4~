@@ -1,0 +1,70 @@
+unit ServerMethodsUnit1;
+
+interface
+
+uses System.SysUtils, System.Classes, Datasnap.DSServer, Datasnap.DSAuth, Generics.Collections, json;
+
+type
+{$METHODINFO ON}
+  TServerMethods1 = class(TComponent)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    function Clienti(name: string): string;
+    function InserisciCliente :string;
+    function EchoString(Value: string): string;
+    function ReverseString(Value: string): string;
+    function Test(Value: string): string;
+    function Fornitori(name :string): string;
+  end;
+{$METHODINFO OFF}
+
+implementation
+
+uses System.StrUtils, datamodulehtmlunit, dialogs;
+
+function TServerMethods1.EchoString(Value: string): string;
+begin
+  Result := Value;
+end;
+
+function TServerMethods1.Test(Value: string): string;
+begin
+  Result := ^m + ^j + #39;
+end;
+
+function TServerMethods1.ReverseString(Value: string): string;
+begin
+  Result := System.StrUtils.ReverseString(Value);
+end;
+
+function TServerMethods1.Clienti(name: string): string;
+var
+md:TDataModule1;
+begin
+ md := TDataModule1.create(nil);
+ result := md.leggilistaclienti (name);
+ md.Free;
+ end;
+
+function TServerMethods1.Fornitori(name: string): string;
+var
+md:TDataModule1;
+begin
+ md := TDataModule1.create(nil);
+ result := md.leggilistafornitori (name);
+ md.Free;
+ end;
+
+function TServerMethods1.InserisciCliente: string;
+var
+md:TdataModule1;
+begin
+md := TDataModule1.create(nil);
+result := md.inserisciinlistaClienti;
+md.Free;
+end;
+
+end.
+

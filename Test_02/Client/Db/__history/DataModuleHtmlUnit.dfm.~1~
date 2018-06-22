@@ -1,0 +1,34 @@
+object DataModuleHtml: TDataModuleHtml
+  OldCreateOrder = False
+  Height = 332
+  Width = 526
+  object ConnDavanzam: TSQLConnection
+    ConnectionName = 'DB2Connection'
+    DriverName = 'DB2'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverName=DB2'
+      'Database=DAVAGOVO'
+      'User_Name=db2admin'
+      'Password=db2admin'
+      'BlobSize=-1'
+      'ErrorResourceFile='
+      'LocaleCode=0000'
+      'IsolationLevel=ReadCommitted'
+      'Decimal Separator=.')
+    Left = 296
+    Top = 96
+  end
+  object DSTemp: TDataSource
+    DataSet = Qtemp
+    Left = 280
+    Top = 168
+  end
+  object Qtemp: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = ConnDavanzam
+    Left = 288
+    Top = 248
+  end
+end

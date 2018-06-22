@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>JQuery Mobile Test</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		function leggilistaclienti()
+		{
+			var cod = document.modulo2.clientecerca.value;
+			if ((cod=="") || (cod=="undefined"))
+			{
+				var conferma = window.confirm("Non hai inserito il codice cliente, continuare?");
+				if (conferma)
+				{
+					window.open("http://192.168.88.76:8080/datasnap/rest/TServerMethods1/clienti");
+				}
+				else
+				{
+					return conferma;
+				}
+			}
+			else
+			{
+				window.open("http://192.168.88.76:8080/datasnap/rest/TServerMethods1/clienti/" + cod);
+			}
+		}
+		function leggilistafornitori()
+		{
+			var cod = document.modulo3.fornitorecerca.value;
+			if ((cod=="")||(cod=="undefined"))
+			{
+				var conferma = window.confirm("Non hai inserito il codice fornitore, continuare?");
+				if(conferma)
+				{
+					window.open("http://192.168.88.76:8080/datasnap/rest/TServerMethods1/fornitori");
+				}
+				else
+				{
+					return conferma;
+				}
+			}
+			else
+			{
+				window.open("http://192.168.88.76:8080/datasnap/rest/TServerMethods1/fornitori/" + cod);
+			}
+		}
+		function inseriscicliente()
+		{
+			var cod = document.modulo4.codInC.value;
+			var ragf = document.modulo4.RagfInC.value;
+			var esragf = document.modulo4.EsragfInC.value;
+			var indf = document.modulo4.IndfInC.value;
+			var esindf = document.modulo4.EsindfInC.value;
+			var capf = document.modulo4.CapfInC.value;
+			var citf = document.modulo4.CitfInC.value;
+			var escitf = document.modulo4.EscitFInC.value;
+			var paesf = document.modulo4.PaesfInC.value;
+			var paesm = document.modulo4.PaesmInC.value;
+			var codiling = document.modulo4.CodilingInC.value;
+			var ragm = document.modulo4.RagmInC.value;
+			var esragm = document.modulo4.EsragmInC.value;
+			var indm = document.modulo4.IndmInC.value;
+			var esindm = document.modulo4.EsindmInC.value;
+			var citm = document.modulo4.CitmInC.value;
+			var escitm = document.modulo4.EscitmInC.value;
+			var capm = document.modulo4.CapmInC.value;
+			var tipocons = document.modulo4.TipoconsInC.value;
+			var prof = document.modulo4.ProfInC.value;
+			var prom = document.modulo4.PromInC.value;
+
+			if (cod=="" || ragf=="" || esragf=="" || indf=="" || esindf=="" || capf=="" || citf=="" || escitf=="" || paesf=="" || paesm=="" || codiling=="" || ragm=="" || esragm=="" || indm=="" || esindm=="" || citm=="" || escitm=="" || capm=="" || tipocons=="" || prof=="" || prom=="") 
+			{	
+				window.alert("Tutti i parametri sono obbligatori");
+			} 
+			else if (cod.length > 5)
+			{
+				window.alert("Il Codice Cliente e' troppo lungo");
+				document.modulo4.codInC.focus();
+			}
+			else if (ragf.length > 24) 
+			{  
+				window.alert("Il ragfattu e' troppo lungo");
+				document.modulo4.RagfInC.focus();
+			}
+			else if (esragf.length > 5)
+			{
+				window.alert("L'esragfat e' troppo lungo"); 
+				document.modulo4.EsragfInC.focus();
+			} 
+			else if (indf.length > 24) 
+			{ 
+				window.alert("L'indifattu e' troppo lungo");
+				document.modulo4.IndfInC.focus();
+			} 
+			else if (esindf.length > 24) 
+			{
+				window.alert("L'esindifat e' troppo lungo");
+				document.modulo4.EsindfInC.focus();
+			} 
+			else if (capf.length > 5)
+			{ 
+				window.alert("Il capfattu e' troppo lungo");
+				document.modulo4.CapfInC.focus();
+			} 
+			else if (citf.length > 18)
+			{
+				window.alert("Il citfattu e' troppo lungo");
+				document.modulo4.CitfInC.focus();
+			}
+			else if (escitf.length > 18) 
+			{ 
+				window.alert("L'escitfat e' troppo lungo");
+				document.modulo4.EscitFInC.focus();				
+			}
+			else if (paesf.length > 3)
+			{  
+				window.alert("Il paesfatt e' troppo lungo");
+				document.modulo4.PaesfInC.focus();				
+			}
+			else if (paesm.length > 3) 
+			{  
+				window.alert("Il paesmerce e' troppo lungo");
+				document.modulo4.PaesmInC.focus();				
+			} 
+			else if (codiling.length > 1)
+			{  
+				window.alert("Il codiling e' troppo lungo");  
+				document.modulo4.CodilingInC.focus();
+			} 
+			else if (ragm.length > 24)
+			{  
+				window.alert("Il ragmerce e' troppo lungo"); 
+				document.modulo4.RagmInC.focus();
+			} 
+			else if (esragm.length > 24) 
+			{  
+				window.alert("L'esragmer e' troppo lungo"); 
+				document.modulo4.EsragmInC.focus();
+			}
+			else if (indm.length > 24)
+			{  
+				window.alert("I#39indmerce e' troppo lungo");  
+				document.modulo4.IndmInC.focus();
+			} 
+			else if (esindm.length > 24)
+			{  
+				window.alert("L'esindmer e' troppo lungo");  
+				document.modulo4.EsindmInC.focus();
+			} 
+			else if (citm.length > 18) 
+			{  
+				window.alert("Il citmerce e' troppo lungo");
+				document.modulo4.CitmInC.focus();
+			} 
+			else if (escitm.length > 18) 
+			{  
+				window.alert("L'escitmer e' troppo lungo");
+				document.modulo4.EscitmInC.focus();
+			} 
+			else if (capm.length > 5)
+			{  
+				window.alert("Il capmerce e' troppo lungo");
+				document.modulo4.CapmInC.focus();
+			} 
+			else if (tipocons.length > 1)
+			{  
+				window.alert("Il tipocons e' troppo lungo");
+				document.modulo4.TipoconsInC.focus();
+			} 
+			else if (prof.length > 2) 
+			{  
+				window.alert("Il profattu e' troppo lungo");
+				document.modulo4.ProfInC.focus();
+			} 
+			else if (prom.length > 2)
+			{  
+				window.alert("Il promerce e' troppo lungo");
+				document.modulo4.PromInC.focus();
+			} 
+			else 
+			{
+				window.open("http://192.168.88.76:8080/datasnap/rest/TServerMethods1/inseriscicliente/" + cod + "/" + ragf + "/" + esragf + "/" + indf + "/" + esindf + "/" + capf + "/" + citf + "/" + escitf + "/" + paesf + "/" + paesm + "/" + codiling + "/" + ragm + "/" + esragm + "/" + indm + "/" + esindm + "/" + citm + "/" + escitm + "/" + capm + "/" + tipocons + "/" + prof + "/" + prom);
+			}
+		}		
+		function inseriscifornitore()
+		{
+			var cod = document.modulo5.codInF.value;
+			var ragf = document.modulo5.RagfInF.value;
+			var esragf = document.modulo5.EsragfInF.value;
+			var indf = document.modulo5.IndfInF.value;
+			var esindf = document.modulo5.EsindfInF.value;
+			var capf = document.modulo5.CapfInF.value;
+			var citf = document.modulo5.CitfInF.value;
+			var escitf = document.modulo5.EscitFInF.value;
+			var paesf = document.modulo5.PaesfInF.value;
+			
+			if (cod=="" || ragf=="" || esragf=="" || indf=="" || esindf=="" || capf=="" || citf=="" || escitf=="" || paesf=="") 
+			{	
+				window.alert("Tutti i parametri sono obbligatori");
+			} 
+			else if (cod.length > 5)
+			{
+				window.alert("Il Codice Fornitore e' troppo lungo");
+				document.modulo5.codInF.focus();
+			}
+			else if (ragf.length > 24) 
+			{  
+				window.alert("Il ragforni e' troppo lungo");
+				document.modulo5.RagfInF.focus();
+			}
+			else if (esragf.length > 5)
+			{
+				window.alert("L'esragfor e' troppo lungo");
+				document.modulo5.EsragfInF.focus();				
+			} 
+			else if (indf.length > 24) 
+			{ 
+				window.alert("L'indiforni e' troppo lungo");
+				document.modulo5.IndfInF.focus();
+			} 
+			else if (esindf.length > 24) 
+			{
+				window.alert("L'esindifor e' troppo lungo");
+				document.modulo5.EsindfInF.focus();
+			} 
+			else if (capf.length > 5)
+			{ 
+				window.alert("Il capforni e' troppo lungo");
+				document.modulo5.CapfInF.focus();
+			} 
+			else if (citf.length > 18)
+			{
+				window.alert("Il citforni e' troppo lungo");
+				document.modulo5.CitfInF.focus();
+			}
+			else if (escitf.length > 18) 
+			{ 
+				window.alert("L'escitfor e' troppo lungo");
+				document.modulo5.EscitFInF.focus();
+			}
+			else if (paesf.length > 3)
+			{  
+				window.alert("Il paesforn e' troppo lungo"); 
+				document.modulo5.PaesfInF.focus();
+			}
+			else 
+			{
+				window.open("http://192.168.88.76:8080/datasnap/rest/TServerMethods1/inseriscifornitore/" + cod + "/" + ragf + "/" + esragf + "/" + indf + "/" + esindf + "/" + capf + "/" + citf + "/" + escitf + "/" + paesf);
+			}
+		}
+		function eliminacliente()
+		{
+			var cod = document.modulo6.clienteelimina.value;
+			if ((cod=="") || (cod=="undefined"))
+			{
+				var conferma = window.alert("Non hai inserito il codice del cliente da cancellare");
+
+			}
+			else
+			{	
+				var conferma = window.confirm("Stai per cancellare il cliente dal codice " + cod);
+				if (conferma)
+				{
+					window.open("http://192.168.88.76:8080/datasnap/rest/TServerMethods1/rimuovicliente/" + cod);
+				}
+				else
+				{
+					return conferma;
+				}
+			}
+		}
+		function eliminafornitore()
+		{
+			var cod = document.modulo7.fornitoreelimina.value;
+			if ((cod=="") || (cod=="undefined"))
+			{
+				var conferma = window.alert("Non hai inserito il codice del fornitore da cancellare");
+
+			}
+			else
+			{	
+				var conferma = window.confirm("Stai per cancellare il fornitore dal codice " + cod);
+				if (conferma)
+				{
+					window.open("http://192.168.88.76:8080/datasnap/rest/TServerMethods1/rimuovifornitore/" + cod);
+				}
+				else
+				{
+					return conferma;
+				}
+			}
+		}
+		function modificacliente()
+		{
+			var cod = document.modulo8.codModC.value;
+			var ragf = document.modulo8.RagfModC.value;
+			var esragf = document.modulo8.EsragfModC.value;
+			var indf = document.modulo8.IndfModC.value;
+			var esindf = document.modulo8.EsindfModC.value;
+			var capf = document.modulo8.CapfModC.value;
+			var citf = document.modulo8.CitfModC.value;
+			var escitf = document.modulo8.EscitFModC.value;
+			var paesf = document.modulo8.PaesfModC.value;
+			var paesm = document.modulo8.PaesmModC.value;
+			var codiling = document.modulo8.CodilingModC.value;
+			var ragm = document.modulo8.RagmModC.value;
+			var esragm = document.modulo8.EsragmModC.value;
+			var indm = document.modulo8.IndmModC.value;
+			var esindm = document.modulo8.EsindmModC.value;
+			var citm = document.modulo8.CitmModC.value;
+			var escitm = document.modulo8.EscitmModC.value;
+			var capm = document.modulo8.CapmModC.value;
+			var tipocons = document.modulo8.TipoconsModC.value;
+			var prof = document.modulo8.ProfModC.value;
+			var prom = document.modulo8.PromModC.value;
+
+			if (cod=="" || ragf=="" || esragf=="" || indf=="" || esindf=="" || capf=="" || citf=="" || escitf=="" || paesf=="" || paesm=="" || codiling=="" || ragm=="" || esragm=="" || indm=="" || esindm=="" || citm=="" || escitm=="" || capm=="" || tipocons=="" || prof=="" || prom=="") 
+			{	
+				window.alert("Tutti i parametri sono obbligatori");
+			} 
+			else if (cod.length > 5)
+			{
+				window.alert("Il Codice Cliente e' troppo lungo");
+				document.modulo8.codModC.focus();
+			}
+			else if (ragf.length > 24) 
+			{  
+				window.alert("Il ragfattu e' troppo lungo");
+				document.modulo8.RagfModC.focus();
+			}
+			else if (esragf.length > 5)
+			{
+				window.alert("L'esragfat e' troppo lungo"); 
+				document.modulo8.EsragfModC.focus();
+			} 
+			else if (indf.length > 24) 
+			{ 
+				window.alert("L'indifattu e' troppo lungo");
+				document.modulo8.IndfModC.focus();
+			} 
+			else if (esindf.length > 24) 
+			{
+				window.alert("L'esindifat e' troppo lungo");
+				document.modulo8.EsindfModC.focus();
+			} 
+			else if (capf.length > 5)
+			{ 
+				window.alert("Il capfattu e' troppo lungo");
+				document.modulo8.CapfModC.focus();
+			} 
+			else if (citf.length > 18)
+			{
+				window.alert("Il citfattu e' troppo lungo");
+				document.modulo8.CitfModC.focus();
+			}
+			else if (escitf.length > 18) 
+			{ 
+				window.alert("L'escitfat e' troppo lungo");
+				document.modulo8.EscitFModC.focus();				
+			}
+			else if (paesf.length > 3)
+			{  
+				window.alert("Il paesfatt e' troppo lungo");
+				document.modulo8.PaesfModC.focus();				
+			}
+			else if (paesm.length > 3) 
+			{  
+				window.alert("Il paesmerce e' troppo lungo");
+				document.modulo8.PaesmModC.focus();				
+			} 
+			else if (codiling.length > 1)
+			{  
+				window.alert("Il codiling e' troppo lungo");  
+				document.modulo8.CodilingModC.focus();
+			} 
+			else if (ragm.length > 24)
+			{  
+				window.alert("Il ragmerce e' troppo lungo"); 
+				document.modulo8.RagmModC.focus();
+			} 
+			else if (esragm.length > 24) 
+			{  
+				window.alert("L'esragmer e' troppo lungo"); 
+				document.modulo8.EsragmModC.focus();
+			}
+			else if (indm.length > 24)
+			{  
+				window.alert("I#39indmerce e' troppo lungo");  
+				document.modulo8.IndmModC.focus();
+			} 
+			else if (esindm.length > 24)
+			{  
+				window.alert("L'esindmer e' troppo lungo");  
+				document.modulo8.EsindmModC.focus();
+			} 
+			else if (citm.length > 18) 
+			{  
+				window.alert("Il citmerce e' troppo lungo");
+				document.modulo8.CitmModC.focus();
+			} 
+			else if (escitm.length > 18) 
+			{  
+				window.alert("L'escitmer e' troppo lungo");
+				document.modulo8.EscitmModC.focus();
+			} 
+			else if (capm.length > 5)
+			{  
+				window.alert("Il capmerce e' troppo lungo");
+				document.modulo8.CapmModC.focus();
+			} 
+			else if (tipocons.length > 1)
+			{  
+				window.alert("Il tipocons e' troppo lungo");
+				document.modulo8.TipoconsModC.focus();
+			} 
+			else if (prof.length > 2) 
+			{  
+				window.alert("Il profattu e' troppo lungo");
+				document.modulo8.ProfModC.focus();
+			} 
+			else if (prom.length > 2)
+			{  
+				window.alert("Il promerce e' troppo lungo");
+				document.modulo8.PromModC.focus();
+			} 
+			else 
+			{
+				window.open("http://192.168.88.76:8080/datasnap/rest/TServerMethods1/modificacliente/" + cod + "/" + ragf + "/" + esragf + "/" + indf + "/" + esindf + "/" + capf + "/" + citf + "/" + escitf + "/" + paesf + "/" + paesm + "/" + codiling + "/" + ragm + "/" + esragm + "/" + indm + "/" + esindm + "/" + citm + "/" + escitm + "/" + capm + "/" + tipocons + "/" + prof + "/" + prom);
+			}
+		}
+		function modificafornitore()
+		{
+			var cod = document.modulo9.codModf.value;
+			var ragf = document.modulo9.RagfModf.value;
+			var esragf = document.modulo9.EsragfModf.value;
+			var indf = document.modulo9.IndfModf.value;
+			var esindf = document.modulo9.EsindfModf.value;
+			var capf = document.modulo9.CapfModf.value;
+			var citf = document.modulo9.CitfModf.value;
+			var escitf = document.modulo9.EscitFModf.value;
+			var paesf = document.modulo9.PaesfModf.value;
+			
+			if (cod=="" || ragf=="" || esragf=="" || indf=="" || esindf=="" || capf=="" || citf=="" || escitf=="" || paesf=="") 
+			{	
+				window.alert("Tutti i parametri sono obbligatori");
+			} 
+			else if (cod.length > 5)
+			{
+				window.alert("Il Codice Fornitore e' troppo lungo");
+				document.modulo9.codModf.focus();
+			}
+			else if (ragf.length > 24) 
+			{  
+				window.alert("Il ragforni e' troppo lungo");
+				document.modulo9.RagfModf.focus();
+			}
+			else if (esragf.length > 5)
+			{
+				window.alert("L'esragfor e' troppo lungo");
+				document.modulo9.EsragfModf.focus();				
+			} 
+			else if (indf.length > 24) 
+			{ 
+				window.alert("L'indiforni e' troppo lungo");
+				document.modulo9.IndfModf.focus();
+			} 
+			else if (esindf.length > 24) 
+			{
+				window.alert("L'esindifor e' troppo lungo");
+				document.modulo9.EsindfModf.focus();
+			} 
+			else if (capf.length > 5)
+			{ 
+				window.alert("Il capforni e' troppo lungo");
+				document.modulo9.CapfModf.focus();
+			} 
+			else if (citf.length > 18)
+			{
+				window.alert("Il citforni e' troppo lungo");
+				document.modulo9.CitfModf.focus();
+			}
+			else if (escitf.length > 18) 
+			{ 
+				window.alert("L'escitfor e' troppo lungo");
+				document.modulo9.EscitFModf.focus();
+			}
+			else if (paesf.length > 3)
+			{  
+				window.alert("Il paesforn e' troppo lungo"); 
+				document.modulo9.PaesfModf.focus();
+			}
+			else 
+			{
+				window.open("http://192.168.88.76:8080/datasnap/rest/TServerMethods1/modificafornitore/" + cod + "/" + ragf + "/" + esragf + "/" + indf + "/" + esindf + "/" + capf + "/" + citf + "/" + escitf + "/" + paesf);
+			}
+		}
+	</script>
+    <form method="spot" name="modulo1" data-role="page" id="principale" data-theme="a">
+		<p><a href="#listaC"><input type="button" value="Lista Clienti" data-inline="true" data-icon="search" data-theme="b"></a></p>
+		<p><a href="#listaF"><input type="button" value="Lista Fornitori" data-inline="true" data-icon="search" data-theme="b"></a></p>
+		<p><a href="#inserisciC"><input type="button" value="Inserisci Cliente" data-inline="true" data-icon="plus" data-theme="b"></a></p> 
+		<p><a href="#inserisciF"><input type="button" value="Inserisci Fornitore" data-inline="true" data-icon="plus" data-theme="b"></a></p>  
+		<p><a href="#eliminaC"><input type="button" value="Cancella Cliente" data-inline="true" data-icon="minus" data-theme="b"></a></p> 
+		<p><a href="#eliminaF"><input type="button" value="Cancella Fornitore" data-inline="true" data-icon="minus" data-theme="b"></a></p>  
+		<p><a href="#modificaC"><input type="button" value="Modifica Cliente" data-inline="true" data-icon="gear" data-theme="b"></a></p> 
+		<p><a href="#modificaF"><input type="button" value="Modifica Fornitore" data-inline="true" data-icon="gear" data-theme="b"></a></p> 
+	</form>
+	<form method="spot" name="modulo2" data-role="page" id="listaC" data-theme="a">
+		<p>Codice Cliente</p>
+		<input type="text" data-theme="b" name="clientecerca">
+		<input type="button" value="Cerca" data-theme="b" onclick="leggilistaclienti()">
+		<p><a href="#principale"><input type="button" value="Menu'" data-inline="true" data-icon="back" data-theme="b"></a></p> 
+	</form>
+	<form method="spot" name="modulo3" data-role="page" id="listaF" data-theme="a">
+	<p>Codice Fornitore</p>
+		<input type="text" data-theme="b" name="fornitorecerca">
+		<input type="button" value="Cerca" data-theme="b" onclick="leggilistafornitori()">
+		<p><a href="#principale"><input type="button" value="Menu'" data-inline="true" data-icon="back" data-theme="b"></a></p> 
+	</form>
+	<form method="spot" name="modulo4" data-role="page" id="inserisciC" data-theme="a">
+		<p>Codice Cliente</p>
+		<input type="text" data-theme="b" name="codInC">
+		<p>Ragfattu</p>
+		<input type="text" data-theme="b" name="RagfInC">
+		<p>Esragfat</p>
+		<input type="text" data-theme="b" name="EsragfInC">
+		<p>Indfattu</p>
+		<input type="text" data-theme="b" name="IndfInC">
+		<p>Esindfat</p>
+		<input type="text" data-theme="b" name="EsindfInC">
+		<p>Capfattu</p>
+		<input type="text" data-theme="b" name="CapfInC">
+		<p>Citfattu</p>
+		<input type="text" data-theme="b" name="CitfInC">
+		<p>Escitfat</p>
+		<input type="text" data-theme="b" name="EscitFInC">
+		<p>Paesfatt</p>
+		<input type="text" data-theme="b" name="PaesfInC">
+		<p>Paesmerc</p>
+		<input type="text" data-theme="b" name="PaesmInC">
+		<p>Codiling</p>
+		<input type="text" data-theme="b" name="CodilingInC">
+		<p>Ragmerce</p>
+		<input type="text" data-theme="b" name="RagmInC">
+		<p>Esragmer</p>
+		<input type="text" data-theme="b" name="EsragmInC">
+		<p>Indmerce</p>
+		<input type="text" data-theme="b" name="IndmInC">
+		<p>Esindmer</p>
+		<input type="text" data-theme="b" name="EsindmInC">
+		<p>Citmerce</p>
+		<input type="text" data-theme="b" name="CitmInC">
+		<p>Escitmer</p>
+		<input type="text" data-theme="b" name="EscitmInC">
+		<p>Capmerce</p>
+		<input type="text" data-theme="b" name="CapmInC">
+		<p>Tipocons</p>
+		<input type="text" data-theme="b" name="TipoconsInC">
+		<p>Profattu</p>
+		<input type="text" data-theme="b" name="ProfInC">
+		<p>Promerce</p>
+		<input type="text" data-theme="b" name="PromInC">
+		<input type="button" value="Inserisci" data-theme="b" onclick="inseriscicliente()">
+		<p><a href="#principale"><input type="button" value="Menu'" data-inline="true" data-icon="back" data-theme="b"></a></p> 
+	</form>
+	<form method="spot" name="modulo5" data-role="page" id="inserisciF" data-theme="a">
+		<p>Codice Fornitore</p>
+		<input type="text" data-theme="b" name="codInF">
+		<p>Ragforni</p>
+		<input type="text" data-theme="b" name="RagfInF">
+		<p>Esragfor</p>
+		<input type="text" data-theme="b" name="EsragfInF">
+		<p>Indforni</p>
+		<input type="text" data-theme="b" name="IndfInF">
+		<p>Esindfor</p>
+		<input type="text" data-theme="b" name="EsindfInF">
+		<p>Capforni</p>
+		<input type="text" data-theme="b" name="CapfInF">
+		<p>Citforni</p>
+		<input type="text" data-theme="b" name="CitfInF">
+		<p>Escitfor</p>
+		<input type="text" data-theme="b" name="EscitFInF">
+		<p>Codpaese</p>
+		<input type="text" data-theme="b" name="PaesfInF">
+		<input type="button" value="Inserisci" data-theme="b" onclick="inseriscifornitore()">
+		<p><a href="#principale"><input type="button" value="Menu'" data-inline="true" data-icon="back" data-theme="b"></a></p> 
+	</form>
+	<form method="spot" name="modulo6" data-role="page" id="eliminaC" data-theme="a">
+		<p>Codice Cliente</p>
+		<input type="text" data-theme="b" name="clienteelimina">
+		<input type="button" value="Elimina" data-theme="b" onclick="eliminacliente()">
+		<p><a href="#principale"><input type="button" value="Menu'" data-inline="true" data-icon="back" data-theme="b"></a></p> 
+	</form>
+	<form method="spot" name="modulo7" data-role="page" id="eliminaF" data-theme="a">
+		<p>Codice Fornitore</p>
+		<input type="text" data-theme="b" name="fornitoreelimina">
+		<input type="button" value="Elimina" data-theme="b" onclick="eliminafornitore()">
+		<p><a href="#principale"><input type="button" value="Menu'" data-inline="true" data-icon="back" data-theme="b"></a></p> 
+	</form>
+	<form method="spot" name="modulo8" data-role="page" id="modificaC" data-theme="a">
+		<p>Codice Cliente</p>
+		<input type="text" data-theme="b" name="codModC">
+		<p>Ragfattu</p>
+		<input type="text" data-theme="b" name="RagfModC">
+		<p>Esragfat</p>
+		<input type="text" data-theme="b" name="EsragfModC">
+		<p>Indfattu</p>
+		<input type="text" data-theme="b" name="IndfModC">
+		<p>Esindfat</p>
+		<input type="text" data-theme="b" name="EsindfModC">
+		<p>Capfattu</p>
+		<input type="text" data-theme="b" name="CapfModC">
+		<p>Citfattu</p>
+		<input type="text" data-theme="b" name="CitfModC">
+		<p>Escitfat</p>
+		<input type="text" data-theme="b" name="EscitFModC">
+		<p>Paesfatt</p>
+		<input type="text" data-theme="b" name="PaesfModC">
+		<p>Paesmerc</p>
+		<input type="text" data-theme="b" name="PaesmModC">
+		<p>Codiling</p>
+		<input type="text" data-theme="b" name="CodilingModC">
+		<p>Ragmerce</p>
+		<input type="text" data-theme="b" name="RagmModC">
+		<p>Esragmer</p>
+		<input type="text" data-theme="b" name="EsragmModC">
+		<p>Indmerce</p>
+		<input type="text" data-theme="b" name="IndmModC">
+		<p>Esindmer</p>
+		<input type="text" data-theme="b" name="EsindmModC">
+		<p>Citmerce</p>
+		<input type="text" data-theme="b" name="CitmModC">
+		<p>Escitmer</p>
+		<input type="text" data-theme="b" name="EscitmModC">
+		<p>Capmerce</p>
+		<input type="text" data-theme="b" name="CapmModC">
+		<p>Tipocons</p>
+		<input type="text" data-theme="b" name="TipoconsModC">
+		<p>Profattu</p>
+		<input type="text" data-theme="b" name="ProfModC">
+		<p>Promerce</p>
+		<input type="text" data-theme="b" name="PromModC">
+		<input type="button" value="Modifica" data-theme="b" onclick="modificacliente()">
+		<p><a href="#principale"><input type="button" value="Menu'" data-inline="true" data-icon="back" data-theme="b"></a></p> 
+	</form>
+		<form method="spot" name="modulo9" data-role="page" id="modificaF" data-theme="a">
+		<p>Codice Fornitore</p>
+		<input type="text" data-theme="b" name="codModf">
+		<p>Ragforni</p>
+		<input type="text" data-theme="b" name="RagfModf">
+		<p>Esragfor</p>
+		<input type="text" data-theme="b" name="EsragfModf">
+		<p>Indforni</p>
+		<input type="text" data-theme="b" name="IndfModf">
+		<p>Esindfor</p>
+		<input type="text" data-theme="b" name="EsindfModf">
+		<p>Capforni</p>
+		<input type="text" data-theme="b" name="CapfModf">
+		<p>Citforni</p>
+		<input type="text" data-theme="b" name="CitfModf">
+		<p>Escitfor</p>
+		<input type="text" data-theme="b" name="EscitFModf">
+		<p>Codpaese</p>
+		<input type="text" data-theme="b" name="PaesfModf">
+		<input type="button" value="Modifica" data-theme="b" onclick="modificafornitore()">
+		<p><a href="#principale"><input type="button" value="Menu'" data-inline="true" data-icon="back" data-theme="b"></a></p> 
+	</form>
+</body>
+</html>
